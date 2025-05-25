@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-_#!zgwsotvjf#1$tk2+2-eeaqqq6^ynxk)_1#7ts(y0_-=2(&e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'pdf-collab-management.onrender.com',  # Your Render URL
+    'localhost',                       # For local development
+    '127.0.0.1',                       # For local testing
+]
 
 
 # Application definition
