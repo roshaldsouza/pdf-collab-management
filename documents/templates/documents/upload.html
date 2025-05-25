@@ -1,63 +1,129 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-3 sidebar p-4">
-        <h4 class="mb-4"><i class="fas fa-history me-2"></i>Recent Uploads</h4>
-        <div class="list-group">
-            {% for doc in recent_docs %}
-            <a href="{% url 'documents:pdf_detail' doc.id %}" 
-               class="list-group-item list-group-item-action">
-                <i class="fas fa-file-pdf text-danger me-2"></i>
-                {{ doc.title|truncatechars:20 }}
-            </a>
-            {% endfor %}
-        </div>
-
-        <h4 class="mt-5 mb-3"><i class="fas fa-comments me-2"></i>Recent Comments</h4>
-        <div class="list-group">
-            {% for comment in recent_comments %}
-            <div class="list-group-item">
-                <small class="text-muted">On {{ comment.document.title }}</small>
-                <p class="mb-1">{{ comment.content|truncatechars:50 }}</p>
-                <small class="text-muted">
-                    - {{ comment.author.username|default:comment.guest_name }}
-                </small>
+<div class="row mb-4">
+    <!-- Upload PDF (Left Side) -->
+   <div class="row">
+    <!-- Upload PDF (left) -->
+    <div class="col-md-6 mb-5">
+      <div class="card h-100">
+            <div class="card shadow-sm border-0" style="background: linear-gradient(135deg, #4a90e2, #accce3); color: white;">
+                <div class="card-header bg-transparent border-0">
+                    <h4 class="mb-3"><i class="fas fa-cloud-upload-alt me-2"></i>Upload PDF</h4>
+                </div>
+                <div class="card-body pt-2">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row align-items-end">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Title</label>
+                                <input type="text" name="title" class="form-control" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">PDF File</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="pdfUpload" name="file" accept=".pdf" required>
+                                    <label class="custom-file-label" for="pdfUpload"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-light btn-sm">
+                            <i class="fas fa-upload me-2"></i>Upload
+                        </button>
+                    </form>
+                </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="col-md-9 p-5">
-        <div class="card p-4">
-            <h2 class="mb-4"><i class="fas fa-cloud-upload-alt me-2"></i>Upload PDF</h2>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    {{ form.title }}
+    <!-- Recent Activity Section -->
+     <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white">
+                <h4><i class="fas fa-history me-2"></i>Recent Uploads</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for doc in recent_docs %}
+                    <a href="{% url 'documents:pdf_detail' doc.id %}" 
+                       class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <i class="fas fa-file-pdf text-danger me-3"></i>
+                        <span>{{ doc.title|truncatechars:30 }}</span>
+                    </a>
+                    {% empty %}
+                    <div class="text-muted p-3">No recent uploads</div>
+                    {% endfor %}
                 </div>
-                <div class="mb-4">
-                    <label class="form-label">PDF File</label>
-                    <div class="custom-file">
-                        {{ form.file }}
-                        <label class="custom-file-label" for="id_file">Choose file...</label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg">
-                    <i class="fas fa-upload me-2"></i>Upload
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+        <!-- Recent Comments (Right Side) -->
+            <!-- Recent Comments (Right Side) -->
+   <div class="row">
+    <!-- Recent Comments (same width as Upload PDF) -->
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white">
+                <h4><i class="fas fa-comments me-2"></i>Recent Comments</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for comment in recent_comments %}
+                    <div class="list-group-item py-3">
+                        <small class="text-muted d-block mb-1">
+                            On <strong>{{ comment.document.title|truncatechars:20 }}</strong>
+                        </small>
+                        <p class="mb-2">{{ comment.content|truncatechars:60 }}</p>
+                        <small class="text-muted">
+                            - {{ comment.author.username|default:comment.guest_name }}
+                        </small>
+                    </div>
+                    {% empty %}
+                    <div class="text-muted p-3">No recent comments</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End of row -->
+
+
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "Browse";
+    }
+    .card {
+        border-radius: 12px;
+        border: none;
+    }
+    .list-group-item {
+        border-color: rgba(0,0,0,0.05);
+        transition: all 0.2s;
+    }
+    .list-group-item:hover {
+        background-color: #f9f9f9;
+    }
+    .card-header h4, .card-header h5 {
+        font-weight: 600;
+    }
+
+    @media (max-width: 767.98px) {
+        .row .col-md-4,
+        .row .col-md-8 {
+            flex: 100%;
+            max-width: 100%;
+        }
+    }
+</style>
+
 <script>
     // Update file input label
-    document.getElementById('id_file').addEventListener('change', function(e) {
-        var fileName = e.target.files[0].name;
+    document.getElementById('pdfUpload').addEventListener('change', function(e) {
+        var fileName = e.target.files[0]?.name || "Choose file...";
         document.querySelector('.custom-file-label').textContent = fileName;
     });
 </script>

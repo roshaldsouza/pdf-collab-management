@@ -17,47 +17,31 @@
       background-color: #f4f6f9;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
     .navbar {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
-    .main-content {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .page-wrapper {
       padding: 2rem 1rem;
     }
-    .content-container {
-      width: 100%;
-      max-width: 800px;
-    }
     .card {
-      border-radius: 20px;
+      border-radius: 16px;
       border: none;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      background: #fff;
-      width: 100%;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
     .card-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      border-radius: 20px 20px 0 0 !important;
-      padding: 2rem;
-      text-align: center;
+      border-radius: 16px 16px 0 0;
+      padding: 1.5rem 2rem;
     }
     .card-body {
       padding: 2rem;
     }
-    .documents-list {
-      margin-top: 1.5rem;
-    }
     .list-group-item {
       border: none;
-      border-radius: 12px !important;
+      border-radius: 10px !important;
       margin-bottom: 0.5rem;
       background: rgba(67, 97, 238, 0.05);
       padding: 1rem 1.5rem;
@@ -66,7 +50,7 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border: none;
       border-radius: 25px;
-      padding: 12px 30px;
+      padding: 10px 24px;
       font-weight: 600;
     }
     .btn-outline-primary {
@@ -75,6 +59,10 @@
       border-radius: 20px;
       padding: 8px 20px;
     }
+    .pdf-icon {
+      color: #dc3545;
+      margin-right: 0.75rem;
+    }
     .document-link {
       text-decoration: none;
       color: var(--dark);
@@ -82,23 +70,41 @@
       display: flex;
       align-items: center;
       flex: 1;
-    }
-    .pdf-icon {
-      color: #dc3545;
-      margin-right: 0.75rem;
-    }
-    h2 {
-      font-weight: 700;
-      margin-bottom: 0;
-    }
-    .upload-section {
-      text-align: center;
-      margin-top: 2rem;
+      margin-right: 20px;
     }
     .empty-state {
       text-align: center;
       color: #6c757d;
-      padding: 1rem;
+      padding: 1.5rem 0;
+    }
+    .search-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .search-results {
+      position: absolute;
+      width: 100%;
+      max-height: 300px;
+      overflow-y: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: none;
+    }
+    .search-result-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .search-result-item:hover {
+      background-color: #f8f9fa;
+    }
+    .search-result-item i {
+      margin-right: 10px;
+      color: #dc3545;
     }
   </style>
 </head>
@@ -110,64 +116,71 @@
       </a>
       <div class="navbar-nav">
         {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'documents:upload' %}">
-          <i class="fas fa-upload me-1"></i>Upload
-        </a>
-        <form action="{% url 'logout' %}" method="post" style="display: inline;">
-          {% csrf_token %}
-          <button type="submit" class="nav-link btn btn-link" style="padding: 0.5rem 1rem;">
-            <i class="fas fa-sign-out-alt me-1"></i>Logout
-          </button>
-        </form>
+          <a class="nav-link" href="{% url 'documents:upload' %}">
+            <i class="fas fa-upload me-1"></i>Upload
+          </a>
+          <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="nav-link btn btn-link" style="padding: 0.5rem 1rem;">
+              <i class="fas fa-sign-out-alt me-1"></i>Logout
+            </button>
+          </form>
         {% else %}
-        <a class="nav-link" href="{% url 'login' %}">
-          <i class="fas fa-sign-in-alt me-1"></i>Login
-        </a>
-        <a class="nav-link" href="{% url 'accounts:signup' %}">
-          <i class="fas fa-user-plus me-1"></i>Sign Up
-        </a>
+          <a class="nav-link" href="{% url 'login' %}">
+            <i class="fas fa-sign-in-alt me-1"></i>Login
+          </a>
+          <a class="nav-link" href="{% url 'accounts:signup' %}">
+            <i class="fas fa-user-plus me-1"></i>Sign Up
+          </a>
         {% endif %}
       </div>
     </div>
   </nav>
 
-  <div class="main-content">
+  <div class="container page-wrapper">
     {% block content %}
-    <div class="content-container">
-      <div class="card">
-        <div class="card-header">
-          <h2><i class="fas fa-folder-open me-2"></i>Your PDF Documents</h2>
-        </div>
-        
-        <div class="card-body">
-          <div class="empty-state">
-            random
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-folder-open me-2"></i>Your PDF Documents</h4>
+            <a href="{% url 'documents:upload' %}" class="btn btn-light">
+              <i class="fas fa-cloud-upload-alt me-1"></i>Upload
+            </a>
           </div>
-          
-          <div class="documents-list">
+
+          <div class="card-body">
+            <!-- Search Input with Results Dropdown -->
+            <div class="search-container">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control form-control-lg"
+                placeholder="Search your PDFs..."
+                aria-label="Search PDFs"
+              />
+              <div class="search-results" id="searchResults"></div>
+            </div>
+
             {% if documents %}
-              {% for document in documents %}
-              <div class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="{{ document.file.url }}" class="document-link" target="_blank">
-                  <i class="fas fa-file-pdf pdf-icon"></i>
-                  {{ document.title }}
-                </a>
-                <a href="{% url 'documents:share_pdf' document.pk %}" class="btn btn-sm btn-outline-primary">
-                  <i class="fas fa-share-alt me-1"></i>Share
-                </a>
+              <div class="documents-list" id="documentsList">
+                {% for document in documents %}
+                  <div class="list-group-item d-flex justify-content-between align-items-center document-item">
+                    <a href="{{ document.file.url }}" class="document-link" target="_blank">
+                      <i class="fas fa-file-pdf pdf-icon"></i>
+                      <span class="document-title">{{ document.title }}</span>
+                    </a>
+                    <a href="{% url 'documents:share_pdf' document.pk %}" class="btn btn-sm btn-outline-primary">
+                      <i class="fas fa-share-alt me-1"></i>Share
+                    </a>
+                  </div>
+                {% endfor %}
               </div>
-              {% endfor %}
             {% else %}
-              <div class="alert alert-info text-center">
+              <div class="empty-state">
                 <i class="fas fa-info-circle me-2"></i>No documents yet. Upload your first PDF!
               </div>
             {% endif %}
-          </div>
-
-          <div class="upload-section">
-            <a href="{% url 'documents:upload' %}" class="btn btn-primary btn-lg">
-              <i class="fas fa-cloud-upload-alt me-2"></i>Upload New PDF
-            </a>
           </div>
         </div>
       </div>
@@ -176,5 +189,75 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+      const documentsList = document.getElementById('documentsList');
+
+      // Create document data array from existing DOM elements
+      const allDocuments = Array.from(document.querySelectorAll('.document-item')).map(item => {
+        return {
+          element: item,
+          title: item.querySelector('.document-title').textContent.toLowerCase(),
+          url: item.querySelector('.document-link').href
+        };
+      });
+
+      searchInput.addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        
+        // Clear previous results
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+        
+        if (filter.length < 1) {
+          // Show all documents when search is empty
+          allDocuments.forEach(doc => {
+            doc.element.style.display = '';
+          });
+          return;
+        }
+        
+        // Filter documents
+        const filtered = allDocuments.filter(doc => 
+          doc.title.includes(filter)
+        );
+        
+        // Update main document list visibility
+        allDocuments.forEach(doc => {
+          doc.element.style.display = 'none';
+        });
+        filtered.forEach(doc => {
+          doc.element.style.display = '';
+        });
+        
+        // Display results in dropdown
+        if (filtered.length > 0) {
+          filtered.forEach(doc => {
+            const resultItem = document.createElement('div');
+            resultItem.className = 'search-result-item';
+            resultItem.innerHTML = `
+              <i class="fas fa-file-pdf"></i>
+              ${doc.element.querySelector('.document-title').textContent}
+            `;
+            resultItem.addEventListener('click', () => {
+              window.location.href = doc.url;
+            });
+            searchResults.appendChild(resultItem);
+          });
+          searchResults.style.display = 'block';
+        }
+      });
+
+      // Hide results when clicking elsewhere
+      document.addEventListener('click', (e) => {
+        if (!searchResults.contains(e.target) && e.target !== searchInput) {
+          searchResults.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
