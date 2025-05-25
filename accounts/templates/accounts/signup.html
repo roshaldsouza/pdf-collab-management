@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="main-content">
+  <div class="content-container">
+    <div class="card">
+      <div class="card-header text-center">
+        <h2><i class="fas fa-user-plus me-2"></i>Create Account</h2>
+        <p class="text-white mb-0">Join our PDF collaboration community</p>
+      </div>
+      
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          
+          <!-- Username Field -->
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            {% render_field form.username class="form-control" placeholder="Enter username" %}
+            {% if form.username.errors %}
+              <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+            {% endif %}
+          </div>
+          
+          <!-- Password Field -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            {% render_field form.password1 class="form-control" placeholder="Create password" %}
+            {% if form.password1.errors %}
+              <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
+            {% endif %}
+          </div>
+          
+          <!-- Password Confirmation -->
+          <div class="mb-4">
+            <label class="form-label">Confirm Password</label>
+            {% render_field form.password2 class="form-control" placeholder="Repeat password" %}
+            {% if form.password2.errors %}
+              <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+            {% endif %}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-user-plus me-2"></i>Create Account
+            </button>
+          </div>
+        </form>
+
+        <!-- Login Link -->
+        <div class="mt-4 pt-3 text-center border-top">
+          <p class="text-muted mb-2">Already have an account?</p>
+          <a href="{% url 'login' %}" class="btn btn-outline-primary">
+            <i class="fas fa-sign-in-alt me-1"></i>Login Here
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

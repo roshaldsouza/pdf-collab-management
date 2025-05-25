@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 sidebar p-4">
+        <h4 class="mb-4"><i class="fas fa-history me-2"></i>Recent Uploads</h4>
+        <div class="list-group">
+            {% for doc in recent_docs %}
+            <a href="{% url 'documents:pdf_detail' doc.id %}" 
+               class="list-group-item list-group-item-action">
+                <i class="fas fa-file-pdf text-danger me-2"></i>
+                {{ doc.title|truncatechars:20 }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <h4 class="mt-5 mb-3"><i class="fas fa-comments me-2"></i>Recent Comments</h4>
+        <div class="list-group">
+            {% for comment in recent_comments %}
+            <div class="list-group-item">
+                <small class="text-muted">On {{ comment.document.title }}</small>
+                <p class="mb-1">{{ comment.content|truncatechars:50 }}</p>
+                <small class="text-muted">
+                    - {{ comment.author.username|default:comment.guest_name }}
+                </small>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9 p-5">
+        <div class="card p-4">
+            <h2 class="mb-4"><i class="fas fa-cloud-upload-alt me-2"></i>Upload PDF</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">PDF File</label>
+                    <div class="custom-file">
+                        {{ form.file }}
+                        <label class="custom-file-label" for="id_file">Choose file...</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-upload me-2"></i>Upload
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update file input label
+    document.getElementById('id_file').addEventListener('change', function(e) {
+        var fileName = e.target.files[0].name;
+        document.querySelector('.custom-file-label').textContent = fileName;
+    });
+</script>
+{% endblock %}

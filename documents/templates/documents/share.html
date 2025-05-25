@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4 shadow">
+            <div class="text-center mb-4">
+                <i class="fas fa-share-alt fa-3x text-success mb-3"></i>
+                <h2>Share "{{ document.title }}"</h2>
+                <p class="text-muted">Anyone with this link can view and comment</p>
+            </div>
+            
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-lg" 
+                       id="shareLink" value="{{ share_url }}" readonly>
+                <button class="btn btn-success" onclick="copyShareLink()">
+                    <i class="fas fa-copy me-2"></i>Copy
+                </button>
+            </div>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-info-circle me-2"></i>
+                The recipient won't need an account to view this PDF.
+            </div>
+            
+            <a href="{% url 'documents:pdf_detail' document.id %}" 
+               class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Document
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyShareLink() {
+    const copyText = document.getElementById("shareLink");
+    copyText.select();
+    document.execCommand("copy");
+    
+    // Show feedback
+    const btn = document.querySelector("#shareLink + button");
+    btn.innerHTML = '<i class="fas fa-check me-2"></i>Copied!';
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy me-2"></i>Copy';
+    }, 2000);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your PDF Documents</h2>
+<ul>
+  {% for document in documents %}
+    <li>
+      <a href="{% url 'documents:pdf_detail' document.pk %}">{{ document.title }}</a>
+      <a href="{% url 'documents:share_pdf' document.pk %}" class="btn btn-sm btn-outline-secondary">Share</a>
+    </li>
+  {% empty %}
+    <li>No documents yet. <a href="{% url 'documents:upload' %}">Upload your first PDF</a></li>
+  {% endfor %}
+</ul>
+<a href="{% url 'documents:upload' %}" class="btn btn-primary">Upload PDF</a>
+{% endblock %}
