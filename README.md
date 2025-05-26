@@ -76,8 +76,8 @@ export SECRET_KEY='your-secret-key-here'
 ├── 🔐 accounts        # Authentication system
 ├── 🎮 manage.py       # Project control center
 └── 📜 requirements.txt # Dependencies list
-<div align="center"> <h2>💖 Made with Django Magic</h2> <img src="https://media.giphy.com/media/3o7TKUM3IgJBX2as9O/giphy.gif" width="150">
+💖 Made with Django Magic
 License
 PRs Welcome
 
-</div> ```
+
