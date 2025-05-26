@@ -20,7 +20,7 @@
 ## 🎯 **Quick Start Guide**
 
 ### 1. **Clone & Enter** 🏠
-
+bash
 git clone https://github.com/roshaldsiuza/pdf-collab-pro.git
 2. Setup Virtual Environment 🐍
 bash
@@ -83,6 +83,9 @@ pdf-collab-pro/
 ├── accounts/       🔐 Auth system
 ├── manage.py       🎛️ Project control
 └── requirements.txt 📦 Dependencies
+
 🔮 Built with Django Magic!
+
 ⭐ Star if you find this useful!
+
 🤝 PRs welcome!
