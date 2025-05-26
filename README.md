@@ -63,24 +63,29 @@ bash
 python manage.py collectstatic
 
 # Set production environment
+markdown
+# PDF Collaboration Project (Django)
+
+## Deployment Commands
+
+```bash
+# Collect static files
+python manage.py collectstatic
+
+# Set production environment
 export DEBUG=False
 export SECRET_KEY='your-secret-key-here'
-🎨 Project Structure
-📦 pdf-collab-pro
-├── 📂 documents        # PDF management core
-│   ├── 📜 models.py    # Database models
-│   ├── 🎨 templates/   # Beautiful UI templates
-│   └── 🎭 views.py     # Business logic
-├── 🔐 accounts        # Authentication system
-├── 🎮 manage.py       # Project control center
-└── 📜 requirements.txt # Dependencies list
-## PDF Collaboration Project (Django)
-
-<h2 align="center">Made with Django Magic</h2>
-<p align="center">
-  <img src="https://media.giphy.com/media/3071KU" width="200">
-</p>
-
-
+Project Structure
+pdf-collab-pro/
+├── documents/       # PDF management core
+├── models.py       # Database models
+├── templates/      # UI templates
+├── views.py        # Business logic
+├── accounts/       # Authentication system
+├── manage.py       # Project control
+└── requirements.txt # Dependencies
+<h2 align="center">Made with Django Magic</h2> <p align="center"> <img src="https://media.giphy.com/media/3071KU" width="200" alt="Django Magic"> </p>
 License
+[Specify your license here]
+
 PRs Welcome!
