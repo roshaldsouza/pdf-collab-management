@@ -20,7 +20,7 @@
 ## 🎯 **Quick Start Guide**
 
 ### 1. **Clone & Enter** 🏠
-```bash
+
 git clone https://github.com/roshaldsiuza/pdf-collab-pro.git
 2. Setup Virtual Environment 🐍
 bash
@@ -58,34 +58,31 @@ python manage.py createsuperuser
 # List all users
 python manage.py shell -c "from django.contrib.auth.models import User; print(list(User.objects.all()))"
 ⚙️ Production Setup
-bash
+
 # Collect static files
 python manage.py collectstatic
 
 # Set production environment
-markdown
-# PDF Collaboration Project (Django)
+# PDF Collaboration Project (Django) ✨
 
-## Deployment Commands
+## 🚀 Deployment Quickstart
 
-```bash
+
 # Collect static files
 python manage.py collectstatic
 
-# Set production environment
+# Set production mode
 export DEBUG=False
 export SECRET_KEY='your-secret-key-here'
-Project Structure
+🗂️ Project Structure
 pdf-collab-pro/
-├── documents/       # PDF management core
-├── models.py       # Database models
-├── templates/      # UI templates
-├── views.py        # Business logic
-├── accounts/       # Authentication system
-├── manage.py       # Project control
-└── requirements.txt # Dependencies
-<h2 align="center">Made with Django Magic</h2> <p align="center"> <img src="https://media.giphy.com/media/3071KU" width="200" alt="Django Magic"> </p>
-License
-[Specify your license here]
-
-PRs Welcome!
+├── documents/       📂 PDF collaboration core
+├── models.py       💾 Database models
+├── templates/      🎨 Beautiful UI
+├── views.py        ⚙️ Business logic
+├── accounts/       🔐 Auth system
+├── manage.py       🎛️ Project control
+└── requirements.txt 📦 Dependencies
+🔮 Built with Django Magic!
+⭐ Star if you find this useful!
+🤝 PRs welcome!
