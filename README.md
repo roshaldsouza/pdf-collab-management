@@ -79,13 +79,3 @@ License
 PRs Welcome
 
 </div> ```
-Why This Rocks:
-Animated GIFs - Catches attention immediately
-
-Emoji Table - Makes features scannable
-
-Command Blocks - Highlighted with emojis
-
-Visual Structure - File tree with emoji icons
-
-Center-Aligned Footer - Professional finish
