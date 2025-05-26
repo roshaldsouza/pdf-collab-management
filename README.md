@@ -2,7 +2,7 @@
 # 🚀 PDF Collab Pro - Your Ultimate PDF Workspace
 
 <div align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDZ1dG1zZ3J1Z2R4bWQ0bWJ2Z2N6dWx5Z2JtY3BmcGZ6eGZ0eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT5LMHxhOfscxPfIfm/giphy.gif" width="200">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDV5dG10b2VwNjQ3Zm95dHdxNmJsNHdlOHQ1YnowYXc2ajFzc2g3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7jtU9sxHNLZuv8HZCa/giphy.gif" width="200">
   
   [![Django](https://img.shields.io/badge/Django-3.2.18-green?style=for-the-badge&logo=django)](https://www.djangoproject.com/)
   [![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)](https://www.python.org/)
