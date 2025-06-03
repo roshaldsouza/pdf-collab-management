@@ -1,7 +1,7 @@
 # 🚀 JobTrack Pro - Your Career Command Center
 
 <div align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWU1dGQ5d2RwZ3Z6d2RqZ3RqZ3RqZ3RqZ3RqZ3RqZ3RqZw/giphy.gif" width="200">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGwxczh4ZTh0MXR5dTM4NWM3NXpyMHUxcGRpNnhudndxM2kxeHBraCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UzPjxxHJC8uZUzW6U6/giphy.gif" width="200">
   
   [![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://react.dev/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5-orange?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
