@@ -1,4 +1,4 @@
-# 🚀 JobTrack Pro - Your Career Command Center
+# 🚀 JobTrack Pro - Your Career Command Center 💼
 
 <div align="center">
   <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGwxczh4ZTh0MXR5dTM4NWM3NXpyMHUxcGRpNnhudndxM2kxeHBraCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UzPjxxHJC8uZUzW6U6/giphy.gif" width="200">
@@ -20,6 +20,9 @@
 ## 🎯 **Quick Start Guide**
 
 ### 1. **Clone & Enter** 🏠
-```bash
-git clone https://github.com/yourusername/jobtrack-pro.git
-cd jobtrack-pro/frontend/client
+
+💖 Made with React Passion
+📜 MIT License
+🐞 PRs Welcome
+📫 Reach out: roshalds789@gmail.com
+
